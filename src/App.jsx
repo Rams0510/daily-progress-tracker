@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 function App() {
   const [formData, setFormData] = useState({
     name: '',
@@ -21,7 +23,7 @@ function App() {
     setStatus({ loading: true, message: '', error: false });
 
     try {
-      const response = await fetch('http://localhost:5000/api/log-study', {
+      const response = await fetch(`${API_URL}/api/log-study`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -41,7 +43,7 @@ function App() {
       } else {
         setStatus({ loading: false, message: data.error || 'Something went wrong.', error: true });
       }
-    } catch{
+    } catch (err) {
       setStatus({ loading: false, message: 'Could not connect to backend server. Is it running?', error: true });
     }
   };
